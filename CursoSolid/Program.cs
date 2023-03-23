@@ -28,12 +28,7 @@ namespace ToDo
                 }
             } while ((Menu)menuSelected != Menu.Exit);
         }
-        
-        /// <summary>
-        /// Show the main menu 
-        /// </summary>
         /// <returns>Returns option indicated by user</returns>
-        
         public static int ShowMainMenu()
         {
             Console.WriteLine("----------------------------------------");
@@ -42,8 +37,6 @@ namespace ToDo
             Console.WriteLine("2. Remover tarea");
             Console.WriteLine("3. Tareas pendientes");
             Console.WriteLine("4. Salir");
-
-            // Read line
             string line = Console.ReadLine();
             return Convert.ToInt32(line);
         }
@@ -57,7 +50,7 @@ namespace ToDo
                 ShowTaskList();
 
                 string line = Console.ReadLine();
-
+                //remove 1 position because equal a index of array
                 int indexToRemove = Convert.ToInt32(line) - 1;
 
                 if(indexToRemove < 0 || indexToRemove > TaskList.Count){
@@ -68,7 +61,6 @@ namespace ToDo
                 string task = TaskList[indexToRemove];
                 TaskList.RemoveAt(indexToRemove);
                 Console.WriteLine($"Tarea {task} eliminada");
-                
             }
             catch (Exception ex)
             {
