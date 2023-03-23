@@ -67,7 +67,7 @@ namespace ToDo
 
                 string task = TaskList[indexToRemove];
                 TaskList.RemoveAt(indexToRemove);
-                Console.WriteLine("Tarea " + task + " eliminada");
+                Console.WriteLine($"Tarea {task} eliminada");
                 
             }
             catch (Exception ex)
@@ -124,7 +124,7 @@ namespace ToDo
         {
         
             var indexTask = 1;
-            TaskList.ForEach(task => Console.WriteLine((indexTask++) + ". " + task ));
+            TaskList.ForEach(task => Console.WriteLine($"{indexTask++} . {task}"));
             Console.WriteLine("----------------------------------------");
         }
         
