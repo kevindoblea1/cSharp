@@ -28,10 +28,12 @@ namespace ToDo
                 }
             } while ((Menu)menuSelected != Menu.Exit);
         }
+        
         /// <summary>
         /// Show the main menu 
         /// </summary>
         /// <returns>Returns option indicated by user</returns>
+        
         public static int ShowMainMenu()
         {
             Console.WriteLine("----------------------------------------");
@@ -46,52 +48,58 @@ namespace ToDo
             return Convert.ToInt32(line);
         }
 
-public static void ShowMenuRemove()
+       public static void ShowMenuRemove()
         {
             try
             {
                 Console.WriteLine("Ingrese el número de la tarea a remover: ");
+
                 ShowTaskList();
+
                 string line = Console.ReadLine();
+
                 int indexToRemove = Convert.ToInt32(line) - 1;
+
                 if(indexToRemove < 0 || indexToRemove > TaskList.Count){
                     Console.WriteLine("El numero ingresado no es valido.");
                     return;
                 }
+
                 string task = TaskList[indexToRemove];
                 TaskList.RemoveAt(indexToRemove);
-                Console.WriteLine("Tarea " + task + " eliminada");               
+                Console.WriteLine("Tarea " + task + " eliminada");
+                
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ingreso un numero de tarea inexistente", ex.Message);
+                Console.WriteLine("Error: ", ex.Message);
             }
         }
-   public static void ShowMenuAdd()
+        
+        public static void ShowMenuAdd()
         {
             try
             {
                 Console.WriteLine("Ingrese el nombre de la tarea: ");
-
-                string taskEnteredByUser = Console.ReadLine();
-
-                if(string.IsNullOrEmpty(taskEnteredByUser) == true)
+                string taskAdd = Console.ReadLine();
+                
+                if(string.IsNullOrWhiteSpace(taskAdd))
                 {
-                    Console.WriteLine("Se requiere el nombre de la tarea.");
+                    System.Console.WriteLine("No se permiten campos nullos");
+                    return;
                 }
                 else
                 {
-                    TaskList.Add(taskEnteredByUser);
-
+                    TaskList.Add(taskAdd);
                     Console.WriteLine("Tarea registrada");
-                }                
+                }
             }
             catch (Exception)
             {
-                Console.WriteLine("Ha ocurrido un error al intentar ingresar la tarea.");
+                System.Console.WriteLine("Ha surgido un erro al ingresar la tarea");
             }
         }
-
+        
         public static void ShowMenuTaskList()
         {
             if (TaskList == null || TaskList.Count == 0)
@@ -102,19 +110,23 @@ public static void ShowMenuRemove()
             {
                  ShowTaskList();
             }
-        }
-            public enum Menu 
+        } 
+        
+        public enum Menu 
         {
             Add = 1,
             Remove= 2,
             List = 3,
             Exit = 4
         }
-           public static void ShowTaskList()
+        
+        public static void ShowTaskList()
         {
+        
             var indexTask = 1;
             TaskList.ForEach(task => Console.WriteLine((indexTask++) + ". " + task ));
             Console.WriteLine("----------------------------------------");
         }
+        
     }
 }
