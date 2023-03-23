@@ -46,40 +46,49 @@ namespace ToDo
             return Convert.ToInt32(line);
         }
 
-        public static void ShowMenuRemove()
+public static void ShowMenuRemove()
         {
             try
             {
                 Console.WriteLine("Ingrese el número de la tarea a remover: ");
-                // Show current taks
                 ShowTaskList();
-
                 string line = Console.ReadLine();
-                // Remove one position
                 int indexToRemove = Convert.ToInt32(line) - 1;
-                if (indexToRemove > -1 && TaskList.Count > 0)
-                {
-                        string task = TaskList[indexToRemove];
-                        TaskList.RemoveAt(indexToRemove);
-                        Console.WriteLine("Tarea " + task + " eliminada");
+                if(indexToRemove < 0 || indexToRemove > TaskList.Count){
+                    Console.WriteLine("El numero ingresado no es valido.");
+                    return;
                 }
+                string task = TaskList[indexToRemove];
+                TaskList.RemoveAt(indexToRemove);
+                Console.WriteLine("Tarea " + task + " eliminada");               
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Console.WriteLine("No se pudo eliminar la tarea");
+                Console.WriteLine("Ingreso un numero de tarea inexistente", ex.Message);
             }
         }
-        public static void ShowMenuAdd()
+   public static void ShowMenuAdd()
         {
             try
             {
                 Console.WriteLine("Ingrese el nombre de la tarea: ");
-                string task = Console.ReadLine();
-                TaskList.Add(task);
-                Console.WriteLine("Tarea registrada");
+
+                string taskEnteredByUser = Console.ReadLine();
+
+                if(string.IsNullOrEmpty(taskEnteredByUser) == true)
+                {
+                    Console.WriteLine("Se requiere el nombre de la tarea.");
+                }
+                else
+                {
+                    TaskList.Add(taskEnteredByUser);
+
+                    Console.WriteLine("Tarea registrada");
+                }                
             }
             catch (Exception)
             {
+                Console.WriteLine("Ha ocurrido un error al intentar ingresar la tarea.");
             }
         }
 
@@ -103,7 +112,6 @@ namespace ToDo
         }
            public static void ShowTaskList()
         {
-        
             var indexTask = 1;
             TaskList.ForEach(task => Console.WriteLine((indexTask++) + ". " + task ));
             Console.WriteLine("----------------------------------------");
